@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-svg-sprite",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "This is an integration between svg-sprite and ember build",
   "keywords": [
     "ember-addon",
@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "broccoli-caching-writer": "^2.2.1",
+    "broccoli-merge-trees": "^3.0.0",
     "broccoli-source": "^1.1.0",
     "glob-fs": "^0.1.7",
     "mkdirp": "^0.5.1",

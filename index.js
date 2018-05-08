@@ -1,6 +1,7 @@
 let fs = require('fs');
 let path = require('path');
 
+let MergeTrees = require('broccoli-merge-trees');
 let Plugin = require('broccoli-caching-writer');
 let Directory = require('broccoli-source').UnwatchedDir;
 let glob = require('glob-fs')({gitignore: true});
@@ -86,12 +87,12 @@ module.exports = {
             app.registry.add('template', {
                 name: 'ember-cli-svg-sprite',
                 ext: 'svg',
-                toTree: () => this.treeForPublic()
+                toTree: (tree) => this.treeForPublic(tree)
             })
         }
     },
 
-    treeForPublic: function () {
+    treeForPublic: function (tree) {
         if (!this._tree) {
             let options = this.options;
             let inputNode = new Directory(options.inputPath);
@@ -99,6 +100,8 @@ module.exports = {
             this._tree = new SvgSpriteCompiler([inputNode], options);
         }
 
-        return this._tree;
+        return MergeTrees([this._tree, tree].filter(t => t), {
+            description: 'MergeTrees (svg-sprite)'
+        });
     },
 };
